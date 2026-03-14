@@ -125,8 +125,7 @@
 
             <div class="brand-box mb-3">
                 <div class="d-flex align-items-center gap-2">
-                    <i class="bi bi-bag-check-fill text-primary fs-4"></i>
-                    <span class="brand-title text-primary">MyShop</span>
+                    <span class="brand-title text-primary fw-semibold">Basic Inventory Module</span>
                 </div>
                 <small class="text-muted">Admin Panel</small>
             </div>

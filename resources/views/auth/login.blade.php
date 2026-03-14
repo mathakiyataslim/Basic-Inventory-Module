@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laravel 12 Custom User Login Page - itsolutionstuff.com</title>
+  <title>Login Page</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <style type="text/css">
     body {
@@ -34,9 +34,7 @@
           <div class="card border border-light-subtle rounded-3 shadow-sm   ">
             <div class="card-body p-3 p-md-4 p-xl-5">
               <div class="text-center mb-3">
-                <a href="#!">
-                  <img src="https://www.itsolutionstuff.com/assets/images/footer-logo-2.png" alt="BootstrapBrain Logo" width="250">
-                </a>
+              <h4 class="fw-bold text-primary">Login</h4>
               </div>
               <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
               <form method="POST" action="{{route('loginsave')}}">

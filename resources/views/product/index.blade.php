@@ -44,4 +44,4 @@
             console.log("table data ->",table);
         });
     </script>
- @endpush('js')
+ @endpush()

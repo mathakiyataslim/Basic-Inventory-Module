@@ -2,8 +2,8 @@
 @section('title','Show Permission')
 @section('content')
 <div class="container mt-3">
-        <h2 class="text-center fw-bold align-item-center pt-3 pb-3"> User's Record</h2>
-        <a href="{{route('permission.create')}}" class="btn btn-primary mb-2">user create</a>
+        <h2 class="text-center fw-bold align-item-center pt-3 pb-3">  Permission</h2>
+        <a href="{{route('permission.create')}}" class="btn btn-primary mb-2">Permission create</a>
         <table class="table  table-bordered table-hover pt-4 mb-3 text-center myTable ">
             <thead class="table-dark text-white">
                 <tr>

@@ -9,21 +9,29 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use App\Models\User;
+
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
-    
+
     {
-    //    return Products::all();
-    
-    // abort_if(!Auth::user()->can('product.index'), 403, 'You can not access this page');
+
+        //   dd( Auth::user()->hasRole('admin'));
+
+        abort_if(!Auth::user()->can('product.index'), 403, 'You can not access this page');
         if($request->ajax()){
 
-            $data = Products::with('Category')->where('status','approved')->get();
-        //  $data = Products::with('Category')->get();
+            if(Auth::user()->hasRole('admin')){
+               $data = Products::with('Category')->get();
+            }   
+            else{
+                   $data = Products::with('Category')->where('status','approved')->get();
+            }
+
             return DataTables::of($data)
             ->addColumn('action',function($row){
                  $csrf_field = csrf_field();
@@ -43,13 +51,13 @@ class ProductController extends Controller
             ->rawColumns(['action','image'])
             ->make(true);
         }
-    
+
         return view('product.index');
 
 
 
         // $search = $request->input('search');
-        
+
         // if($search){
         //      $products = Products::withWhereHas('Category',function($query) use($search){
         //        return $query->where('name',"Like","%{$search}%");
@@ -57,13 +65,13 @@ class ProductController extends Controller
         // }
         // else{
         //     $products = Products::with('Category')->orderBy('price','Desc')->get();
-             
+
         // }
         //  $total = Products::sum('price');
         //  return view('product.index',compact('products','total'));
         // $products = Products::with('Category')->orderBy('name','asc')->orderBy('price','desc')->get();
         // $products = Products::->get();
-        
+
     }
 
     /**
@@ -71,9 +79,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        abort_if(!Auth::user()->can('product.create'), 403,'you can not access this page');
-        $categories = Category::all(); 
-        return view("product.create",compact('categories'));
+        abort_if(!Auth::user()->can('product.create'), 403, 'you can not access this page');
+        $categories = Category::all();
+        return view("product.create", compact('categories'));
     }
 
     /**
@@ -81,14 +89,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       
-         $data = $request->all();
-        $file = $request->file('image')->store('/image','public');
+
+        $data = $request->all();
+        $file = $request->file('image')->store('/image', 'public');
         $data['image'] = $file;
-         Products::create($data);
-         return redirect()->route('product.index');
-       
-        
+        if (Auth::user()->hasRole('admin')) {
+            $data["status"] = "approved";
+        } else {
+            $data["status"] = "pending";
+        }
+
+        Products::create($data);
+        return redirect()->route('product.index');
     }
     //  * Display the specified resource.
     //  */
@@ -102,10 +114,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        abort_if(!Auth::user()->can('product.edit'),403,'you can not aceess this page');
+        abort_if(!Auth::user()->can('product.edit'), 403, 'you can not aceess this page');
         $product = Products::find($id);
         $categories = Category::all();
-        return view('product.edit',compact('product','categories'));
+        return view('product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -115,9 +127,9 @@ class ProductController extends Controller
     {
         $products = Products::find($id);
         $data = $request->all();
-        if($request->hasfile('image')){
-            $file = $request->file('image')->store('/image','public');
-            $data['image']=$file;
+        if ($request->hasfile('image')) {
+            $file = $request->file('image')->store('/image', 'public');
+            $data['image'] = $file;
         }
         $products->update($data);
         return redirect()->route('product.index');

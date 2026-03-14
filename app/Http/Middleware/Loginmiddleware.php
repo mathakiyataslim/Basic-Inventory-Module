@@ -29,7 +29,7 @@ class Loginmiddleware
       
     //    if($user->role ==='user'){
     //         if ($user->hasPermissionTo($route)) { 
-    //             return $next($request);
+    //             return $$next($request);
     //          }
     //    }
 
