@@ -29,7 +29,7 @@
 *Visualizing the flow from Admin Dashboard to public User Site.*
 
 <div align="center">
-  <img src="screenshots/product.png" width="900" alt="Full Workflow" style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+  <img src="./product.png" width="900" alt="Full Workflow" style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
 </div>
 
 ---
